@@ -100,7 +100,7 @@ public class SQLManager implements Manager {
         Map<Location, Mailbox> locations = new HashMap<>();
         Statement st = conn.createStatement();
 
-        ResultSet rs = st.executeQuery("SELECT (world, x, y, z, owner) FROM mailboxes;");
+        ResultSet rs = st.executeQuery("SELECT world, x, y, z, owner FROM mailboxes;");
 
         while (rs.next()) {
             World world = Bukkit.getWorld(rs.getString("world"));
@@ -124,7 +124,7 @@ public class SQLManager implements Manager {
         Map<UUID, Mailbox> mailboxes = new HashMap<>();
         Statement st = conn.createStatement();
 
-        ResultSet rs = st.executeQuery("SELECT (uuid, item) FROM mailitems;");
+        ResultSet rs = st.executeQuery("SELECT uuid, item FROM mailitems;");
 
         while (rs.next()) {
             UUID uuid = UUID.fromString(rs.getString("uuid"));
