@@ -33,6 +33,7 @@ public class MailManager implements Manager {
 
         try {
             mailboxes = WiCSPlugin.sqlManager.loadMailboxes();
+            locations = WiCSPlugin.sqlManager.loadLocations(mailboxes);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,7 +42,7 @@ public class MailManager implements Manager {
     @Override
     public void interval() {
         try {
-            WiCSPlugin.sqlManager.saveMailboxes(mailboxes);
+            WiCSPlugin.sqlManager.saveMailboxes(mailboxes, locations);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -50,7 +51,7 @@ public class MailManager implements Manager {
     @Override
     public void disable() {
         try {
-            WiCSPlugin.sqlManager.saveMailboxes(mailboxes);
+            WiCSPlugin.sqlManager.saveMailboxes(mailboxes, locations);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -25,9 +25,16 @@ public class WiCSPlugin extends JavaPlugin {
         managers.add(sqlManager);
         managers.add(mailManager);
 
-        for (Manager manager : managers) {
-            manager.init();
-        }
+        // Run after server has properly initialize
+        // This avoids issues like querying Bukkit.getWorld() before world is loading
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Manager manager : managers) {
+                    manager.init();
+                }
+            }
+        }.runTaskLater(this, 0);
 
         // Interval for managers every 5 minutes
         // Useful for auto-save on managers with live data
