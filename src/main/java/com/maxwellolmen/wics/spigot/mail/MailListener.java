@@ -103,12 +103,28 @@ public class MailListener implements Listener {
     }
 
     @EventHandler
-    public void onBlockPiston(BlockPistonEvent event) {
-        Block block = event.getBlock();
-        Mailbox mailbox = manager.getMailbox(event.getBlock().getLocation());
+    public void onBlockPiston(BlockPistonExtendEvent event) {
+        List<Block> blocks = event.getBlocks();
 
-        if (mailbox != null) {
-            event.setCancelled(true);
+        for (Block block : blocks) {
+            Mailbox mailbox = manager.getMailbox(block.getLocation());
+
+            if (mailbox != null) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBlockPiston(BlockPistonRetractEvent event) {
+        List<Block> blocks = event.getBlocks();
+
+        for (Block block : blocks) {
+            Mailbox mailbox = manager.getMailbox(block.getLocation());
+
+            if (mailbox != null) {
+                event.setCancelled(true);
+            }
         }
     }
 
