@@ -140,6 +140,4 @@ public class MailListener implements Listener {
             event.setCancelled(true);
         }
     }
-
-    Block
 }
