@@ -45,7 +45,7 @@ public class WiCSPlugin extends JavaPlugin {
                     manager.interval();
                 }
             }
-        }.runTaskTimer(this, 0, 6000);
+        }.runTaskTimer(this, 6000, 6000);
     }
 
     @Override
