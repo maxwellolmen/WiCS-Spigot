@@ -113,6 +113,8 @@ public class MailManager implements Manager {
 
     public void processChestOpen(Player player, Location location, PlayerInteractEvent event) {
         if (locations.containsKey(location)) {
+            event.setCancelled(true);
+
             if (locations.get(location).getOwner() != player.getUniqueId()) {
                 player.sendMessage(ChatColor.RED + "Sorry, that isn't your chest!");
                 return;
@@ -120,7 +122,6 @@ public class MailManager implements Manager {
 
             locations.get(location).open(player);
             openMailboxes.add(player.getUniqueId());
-            event.setCancelled(true);
         }
     }
 
