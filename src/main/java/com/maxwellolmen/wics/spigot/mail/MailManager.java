@@ -35,7 +35,7 @@ public class MailManager implements Manager {
 
     public void init() {
         plugin.getServer().getPluginManager().registerEvents(listener, plugin);
-        Objects.requireNonNull(plugin.getCommand("mail")).setExecutor(new MailCommand(this));
+        Objects.requireNonNull(plugin.getCommand("mailbox")).setExecutor(new MailCommand(this));
 
         try {
             mailboxes = WiCSPlugin.sqlManager.loadMailboxes();

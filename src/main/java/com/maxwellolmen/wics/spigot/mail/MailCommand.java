@@ -22,7 +22,7 @@ public class MailCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("/mail cannot be run from the console.");
+            sender.sendMessage("/" + label + " cannot be run from the console.");
             return true;
         }
 
@@ -31,14 +31,14 @@ public class MailCommand implements CommandExecutor {
         if (args.length == 0) {
             player.sendMessage(ChatColor.RED +
                     "Usage:\n" +
-                    "  /mail send <player> - Sends the item in your hand to the given player's mailbox.\n" +
-                    "  /mail set - Sets your mailbox to the current chest.");
+                    "  /" + label + " send <player> - Sends the item in your hand to the given player's mailbox.\n" +
+                    "  /" + label + " set - Sets your mailbox to the current chest.");
             return true;
         }
 
         if (args[0].equalsIgnoreCase("send")) {
             if (args.length == 1) {
-                player.sendMessage(ChatColor.RED + "Usage: /mail send <player>");
+                player.sendMessage(ChatColor.RED + "Usage: /" + label + " send <player>");
                 return true;
             }
 
