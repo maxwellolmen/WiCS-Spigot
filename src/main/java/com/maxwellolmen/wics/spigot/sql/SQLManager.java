@@ -73,11 +73,11 @@ public class SQLManager implements Manager {
 
         Statement st = conn.createStatement();
 
+        st.execute("DELETE FROM mailitems;");
+
         for (Map.Entry<UUID, Mailbox> entry : mailboxes.entrySet()) {
             UUID uuid = entry.getKey();
             Mailbox mailbox = entry.getValue();
-
-            st.execute("DELETE FROM mailitems WHERE uuid='" + uuid.toString() + "';");
 
             if (mailbox.getItems().size() == 0) {
                 ItemStack item = new ItemStack(Material.AIR);
@@ -89,11 +89,12 @@ public class SQLManager implements Manager {
             }
         }
 
+        st.execute("DELETE FROM mailboxes;");
+
         for (Map.Entry<Location, Mailbox> entry : locations.entrySet()) {
             Location location = entry.getKey();
             Mailbox mailbox = entry.getValue();
 
-            st.execute("DELETE FROM mailboxes WHERE owner='" + mailbox.getOwner().toString() + "';");
             st.execute("INSERT INTO mailboxes (world, x, y, z, owner) VALUES ('" + location.getWorld().getName() + "', " + location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() + ", '" + mailbox.getOwner().toString() + "');");
         }
 
