@@ -5,6 +5,7 @@ import com.maxwellolmen.wics.spigot.WiCSPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
 import java.sql.SQLException;
@@ -53,7 +54,7 @@ public class MailManager implements Manager {
         try {
             WiCSPlugin.sqlManager.saveMailboxes(mailboxes, locations);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -106,9 +107,10 @@ public class MailManager implements Manager {
         }
     }
 
-    public void processChestOpen(Player player, Location location) {
+    public void processChestOpen(Player player, Location location, PlayerInteractEvent event) {
         if (locations.containsKey(location)) {
             locations.get(location).open(player);
+            event.setCancelled(true);
         }
     }
 
