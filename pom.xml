@@ -17,7 +17,7 @@
     <build>
         <resources>
             <resource>
-                <directory>[your directory]</directory>
+                <directory>src/main/resources</directory>
                 <includes>
                     <include>*.yml</include>
                 </includes>
