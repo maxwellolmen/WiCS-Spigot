@@ -81,10 +81,10 @@ public class SQLManager implements Manager {
 
             if (mailbox.getItems().size() == 0) {
                 ItemStack item = new ItemStack(Material.AIR);
-                st.execute("INSERT INTO mailitems (uuid, item) VALUES ('" + uuid.toString() + "', " + ItemUtil.serialize(item) + ");");
+                st.execute("INSERT INTO mailitems (uuid, item) VALUES ('" + uuid.toString() + "', '" + ItemUtil.serialize(item) + "');");
             } else {
                 for (ItemStack item : mailbox.getItems()) {
-                    st.execute("INSERT INTO mailitems (uuid, item) VALUES ('" + uuid.toString() + "', " + ItemUtil.serialize(item) + ");");
+                    st.execute("INSERT INTO mailitems (uuid, item) VALUES ('" + uuid.toString() + "', '" + ItemUtil.serialize(item) + "');");
                 }
             }
         }
