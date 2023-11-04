@@ -40,7 +40,12 @@ public class Mailbox {
 
     public void close(Inventory inventory) {
         items.clear();
-        items.addAll(Arrays.asList(inventory.getContents()));
+
+        for (ItemStack item : inventory.getContents()) {
+            if (item != null && item.getType() != Material.AIR) {
+                items.add(item);
+            }
+        }
     }
 
     public List<ItemStack> getItems() {
