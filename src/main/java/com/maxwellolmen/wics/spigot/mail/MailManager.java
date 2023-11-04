@@ -3,6 +3,7 @@ package com.maxwellolmen.wics.spigot.mail;
 import com.maxwellolmen.wics.spigot.Manager;
 import com.maxwellolmen.wics.spigot.WiCSPlugin;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -112,6 +113,11 @@ public class MailManager implements Manager {
 
     public void processChestOpen(Player player, Location location, PlayerInteractEvent event) {
         if (locations.containsKey(location)) {
+            if (locations.get(location).getOwner() != player.getUniqueId()) {
+                player.sendMessage(ChatColor.RED + "Sorry, that isn't your chest!");
+                return;
+            }
+
             locations.get(location).open(player);
             openMailboxes.add(player.getUniqueId());
             event.setCancelled(true);
