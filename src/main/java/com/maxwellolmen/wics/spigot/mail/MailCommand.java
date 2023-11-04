@@ -55,9 +55,10 @@ public class MailCommand implements CommandExecutor {
             }
 
             ItemStack item = player.getInventory().getItemInMainHand();
-            player.getInventory().getItemInMainHand().setAmount(0);
 
+            player.getInventory().remove(item);
             mailbox.addItem(item);
+
             WiCSPlugin.mailManager.refresh(mailbox);
 
             player.sendMessage(ChatColor.GREEN + "Item sent!");
