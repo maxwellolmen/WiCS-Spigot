@@ -3,10 +3,12 @@ package com.maxwellolmen.wics.spigot.mail;
 import com.maxwellolmen.wics.spigot.WiCSPlugin;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.Chest;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class MailCommand implements CommandExecutor {
@@ -86,6 +88,13 @@ public class MailCommand implements CommandExecutor {
                 return true;
             }
 
+            Chest chest = (Chest) block.getState();
+
+            if (!isInventoryEmpty(chest.getInventory())) {
+                player.sendMessage(ChatColor.RED + "Chest has items! You can't set it as your mailbox.");
+                return true;
+            }
+
             Location location = block.getLocation();
 
             if (manager.getMailbox(location) != null) {
@@ -103,6 +112,15 @@ public class MailCommand implements CommandExecutor {
             player.sendMessage(ChatColor.GREEN + "Mailbox location set!");
         }
 
+        return true;
+    }
+
+    public boolean isInventoryEmpty(Inventory inventory) {
+        for (ItemStack item : inventory.getContents()) {
+            if (item != null && item.getType() != Material.AIR) {
+                return false;
+            }
+        }
         return true;
     }
 }

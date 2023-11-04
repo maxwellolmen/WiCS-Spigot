@@ -6,8 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -59,7 +58,7 @@ public class MailListener implements Listener {
             return;
         }
 
-        if (event.getPlayer().isSneaking() && event.isBlockInHand()) {
+        if (event.getPlayer().isSneaking()) {
             return;
         }
 
@@ -80,19 +79,67 @@ public class MailListener implements Listener {
             return;
         }
 
-        if (!mailbox.getOwner().equals(event.getPlayer().getUniqueId())) {
-            event.setCancelled(true);
-            event.getPlayer().sendMessage(ChatColor.RED + "This isn't your mailbox! You can't destroy it.");
-            return;
-        }
+        if (mailbox.getOwner().equals(event.getPlayer().getUniqueId())) {
+            if (mailbox.getItems().size() != 0) {
+                event.getPlayer().sendMessage(ChatColor.RED + "You still have items in your mailbox! You can't destroy it yet.");
+                event.setCancelled(true);
+                return;
+            }
 
-        if (mailbox.getItems().size() != 0) {
-            event.getPlayer().sendMessage(ChatColor.RED + "You still have items in your mailbox! You can't destroy it yet.");
-            event.setCancelled(true);
-            return;
+            manager.destroyMailbox(event.getPlayer().getUniqueId());
+            event.getPlayer().sendMessage(ChatColor.GREEN + "Mailbox destroyed.");
         }
-
-        manager.destroyMailbox(event.getPlayer().getUniqueId());
-        event.getPlayer().sendMessage(ChatColor.GREEN + "Mailbox destroyed.");
     }
+
+    @EventHandler
+    public void onBlockBurn(BlockBurnEvent event) {
+        Block block = event.getBlock();
+        Mailbox mailbox = manager.getMailbox(event.getBlock().getLocation());
+
+        if (mailbox != null) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onBlockPiston(BlockPistonEvent event) {
+        Block block = event.getBlock();
+        Mailbox mailbox = manager.getMailbox(event.getBlock().getLocation());
+
+        if (mailbox != null) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onBlockExplode(BlockExplodeEvent event) {
+        Block block = event.getBlock();
+        Mailbox mailbox = manager.getMailbox(event.getBlock().getLocation());
+
+        if (mailbox != null) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onBlockDamage(BlockDamageEvent event) {
+        Block block = event.getBlock();
+        Mailbox mailbox = manager.getMailbox(event.getBlock().getLocation());
+
+        if (mailbox != null) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onBlockIgnite(BlockIgniteEvent event) {
+        Block block = event.getBlock();
+        Mailbox mailbox = manager.getMailbox(event.getBlock().getLocation());
+
+        if (mailbox != null) {
+            event.setCancelled(true);
+        }
+    }
+
+    Block
 }
