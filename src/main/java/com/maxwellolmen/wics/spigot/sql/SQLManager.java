@@ -6,10 +6,8 @@ import com.maxwellolmen.wics.spigot.mail.Mailbox;
 import com.maxwellolmen.wics.spigot.util.ItemUtil;
 import org.bukkit.inventory.ItemStack;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -70,5 +68,31 @@ public class SQLManager implements Manager {
         }
 
         st.close();
+    }
+
+    public Map<UUID, Mailbox> loadMailboxes() throws SQLException {
+        Map<UUID, Mailbox> mailboxes = new HashMap<>();
+        Statement st = conn.createStatement();
+
+        ResultSet rs = st.executeQuery("SELECT (uuid, item) FROM mailboxes;");
+
+        while (rs.next()) {
+            UUID uuid = UUID.fromString(rs.getString("uuid"));
+            ItemStack item = ItemUtil.deserialize(rs.getString("item"));
+
+            if (mailboxes.containsKey(uuid)) {
+                mailboxes.get(uuid).addItem(item);
+            } else {
+                Mailbox mailbox = new Mailbox();
+                mailbox.addItem(item);
+
+                mailboxes.put(uuid, mailbox);
+            }
+        }
+
+        rs.close();
+        st.close();
+
+        return mailboxes;
     }
 }

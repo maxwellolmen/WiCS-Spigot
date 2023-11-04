@@ -10,17 +10,16 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class Mailbox {
 
     private List<ItemStack> items;
+    private UUID owner;
 
-    public Mailbox() {
-        this(new ArrayList<>());
-    }
-
-    public Mailbox(List<ItemStack> items) {
-        this.items = items;
+    public Mailbox(UUID owner) {
+        this.items = new ArrayList<>();
+        this.owner = owner;
     }
 
     public void updateItems(List<ItemStack> items) {
@@ -46,5 +45,14 @@ public class Mailbox {
 
     public List<ItemStack> getItems() {
         return items;
+    }
+
+    public void addItem(ItemStack item) {
+        items.add(item);
+        WiCSPlugin.mailManager.refresh(this);
+    }
+
+    public UUID getOwner() {
+        return owner;
     }
 }
