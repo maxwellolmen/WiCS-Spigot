@@ -42,7 +42,7 @@ public class MailCommand implements CommandExecutor {
 
             OfflinePlayer target =  Bukkit.getOfflinePlayer(args[1]);
 
-            if (!target.hasPlayedBefore()) {
+            if (!target.hasPlayedBefore() && Bukkit.getPlayer(args[1]) == null) {
                 player.sendMessage(ChatColor.RED + "That player has never been online.");
                 return true;
             }
@@ -60,6 +60,11 @@ public class MailCommand implements CommandExecutor {
             }
 
             ItemStack item = player.getInventory().getItemInMainHand();
+
+            if (item.getType() == Material.AIR) {
+                player.sendMessage(ChatColor.RED + "Your hand is empty!");
+                return true;
+            }
 
             player.getInventory().remove(item);
             mailbox.addItem(item);

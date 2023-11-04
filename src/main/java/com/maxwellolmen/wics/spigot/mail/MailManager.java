@@ -116,9 +116,6 @@ public class MailManager implements Manager {
         if (locations.containsKey(location)) {
             event.setCancelled(true);
 
-            System.out.println(locations.get(location).getOwner());
-            System.out.println(player.getUniqueId());
-
             if (!locations.get(location).getOwner().equals(player.getUniqueId())) {
                 player.sendMessage(ChatColor.RED + "Sorry, that isn't your chest!");
                 return;
