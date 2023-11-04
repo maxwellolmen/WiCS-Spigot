@@ -13,10 +13,10 @@ import java.util.*;
 
 public class MailManager implements Manager {
 
-    private final WiCSPlugin plugin;
-    private final MailListener listener;
+    private WiCSPlugin plugin;
+    private MailListener listener;
 
-    private final Set<UUID> openMailboxes;
+    private Set<UUID> openMailboxes;
     private Map<UUID, Mailbox> mailboxes;
     private Map<Location, Mailbox> locations;
 
