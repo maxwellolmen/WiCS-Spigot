@@ -13,10 +13,10 @@ import java.util.*;
 
 public class MailManager implements Manager {
 
-    private WiCSPlugin plugin;
-    private MailListener listener;
+    private final WiCSPlugin plugin;
+    private final MailListener listener;
 
-    private Set<UUID> openMailboxes;
+    private final Set<UUID> openMailboxes;
     private Map<UUID, Mailbox> mailboxes;
     private Map<Location, Mailbox> locations;
 
@@ -110,6 +110,7 @@ public class MailManager implements Manager {
     public void processChestOpen(Player player, Location location, PlayerInteractEvent event) {
         if (locations.containsKey(location)) {
             locations.get(location).open(player);
+            openMailboxes.add(player.getUniqueId());
             event.setCancelled(true);
         }
     }
