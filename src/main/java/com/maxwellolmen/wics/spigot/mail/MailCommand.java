@@ -56,6 +56,11 @@ public class MailCommand implements CommandExecutor {
                 return true;
             }
 
+            if (manager.isOpen(target.getUniqueId())) {
+                player.sendMessage(ChatColor.RED + "That player is currently in their mailbox! Try again later...");
+                return true;
+            }
+
             if (mailbox.getItems().size() >= 54) {
                 player.sendMessage(ChatColor.RED + "Sorry! That player's mailbox is full.");
                 return true;

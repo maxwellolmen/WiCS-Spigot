@@ -95,6 +95,10 @@ public class MailManager implements Manager {
         }
     }
 
+    public boolean isOpen(UUID uuid) {
+        return openMailboxes.contains(uuid);
+    }
+
     public Mailbox getMailbox(UUID uuid) {
         return mailboxes.getOrDefault(uuid, null);
     }

@@ -34,7 +34,7 @@ public class MailListener implements Listener {
         List<String> pendingNotifs = manager.getPendingNotifs(event.getPlayer().getUniqueId());
 
         if (pendingNotifs != null) {
-            event.getPlayer().sendMessage(ChatColor.GOLD + "While you were gone, you were sent " + pendingNotifs.size() + " items.");
+            event.getPlayer().sendMessage(ChatColor.GOLD + "While you were gone, you were sent " + pendingNotifs.size() + " item" + (pendingNotifs.size() > 1 ? "s" : "") + ".");
 
             Map<String, Integer> senderAmounts = new TreeMap<>();
 
@@ -43,7 +43,7 @@ public class MailListener implements Listener {
             }
 
             for (String sender : senderAmounts.keySet()) {
-                event.getPlayer().sendMessage(ChatColor.GOLD + "  - from " + sender + ": " + senderAmounts.get(sender) + " items");
+                event.getPlayer().sendMessage(ChatColor.GOLD + "  - from " + sender + ": " + senderAmounts.get(sender) + " item" + (senderAmounts.get(sender) > 1 ? "s" : ""));
             }
         }
     }
