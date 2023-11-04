@@ -26,7 +26,7 @@ public class MailManager implements Manager {
     public void init() {
         plugin.getServer().getPluginManager().registerEvents(listener, plugin);
 
-        mailboxes = WiCSPlugin.sqlManager.loadMailboxes();
+        // mailboxes = WiCSPlugin.sqlManager.loadMailboxes();
     }
 
     @Override
