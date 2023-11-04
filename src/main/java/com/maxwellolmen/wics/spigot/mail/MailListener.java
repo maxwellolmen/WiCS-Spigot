@@ -23,6 +23,7 @@ public class MailListener implements Listener {
         this.manager = manager;
     }
 
+    @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Mailbox mailbox = manager.getMailbox(event.getPlayer().getUniqueId());
 
