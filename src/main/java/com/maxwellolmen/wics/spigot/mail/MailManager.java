@@ -11,6 +11,7 @@ import org.bukkit.inventory.Inventory;
 
 import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
 
 public class MailManager implements Manager {
 
@@ -114,6 +115,9 @@ public class MailManager implements Manager {
     public void processChestOpen(Player player, Location location, PlayerInteractEvent event) {
         if (locations.containsKey(location)) {
             event.setCancelled(true);
+            
+            System.out.println(locations.get(location).getOwner());
+            System.out.println(player.getUniqueId());
 
             if (locations.get(location).getOwner() != player.getUniqueId()) {
                 player.sendMessage(ChatColor.RED + "Sorry, that isn't your chest!");

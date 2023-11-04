@@ -81,11 +81,14 @@ public class MailListener implements Listener {
         }
 
         if (mailbox.getOwner() != event.getPlayer().getUniqueId()) {
+            event.setCancelled(true);
+            event.getPlayer().sendMessage(ChatColor.RED + "This isn't your mailbox! You can't destroy it.");
             return;
         }
 
         if (mailbox.getItems().size() != 0) {
             event.getPlayer().sendMessage(ChatColor.RED + "You still have items in your mailbox! You can't destroy it yet.");
+            event.setCancelled(true);
             return;
         }
 
