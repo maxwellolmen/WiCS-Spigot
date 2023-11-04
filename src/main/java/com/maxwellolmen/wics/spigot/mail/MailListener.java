@@ -36,6 +36,7 @@ public class MailListener implements Listener {
             return;
         }
 
+        event.setCancelled(true);
         manager.processChestOpen(event.getPlayer(), block.getLocation());
     }
 
