@@ -6,6 +6,7 @@ import com.maxwellolmen.wics.spigot.mail.Mailbox;
 import com.maxwellolmen.wics.spigot.util.ItemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 
@@ -78,8 +79,13 @@ public class SQLManager implements Manager {
 
             st.execute("DELETE FROM mailitems WHERE uuid='" + uuid.toString() + "';");
 
-            for (ItemStack item : mailbox.getItems()) {
+            if (mailbox.getItems().size() == 0) {
+                ItemStack item = new ItemStack(Material.AIR);
                 st.execute("INSERT INTO mailitems (uuid, item) VALUES ('" + uuid.toString() + "', " + ItemUtil.serialize(item) + ");");
+            } else {
+                for (ItemStack item : mailbox.getItems()) {
+                    st.execute("INSERT INTO mailitems (uuid, item) VALUES ('" + uuid.toString() + "', " + ItemUtil.serialize(item) + ");");
+                }
             }
         }
 
@@ -129,6 +135,10 @@ public class SQLManager implements Manager {
         while (rs.next()) {
             UUID uuid = UUID.fromString(rs.getString("uuid"));
             ItemStack item = ItemUtil.deserialize(rs.getString("item"));
+
+            if (item.getType() == Material.AIR) {
+                continue;
+            }
 
             if (mailboxes.containsKey(uuid)) {
                 mailboxes.get(uuid).addItem(item);
