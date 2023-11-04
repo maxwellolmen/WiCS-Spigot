@@ -119,7 +119,7 @@ public class MailManager implements Manager {
             System.out.println(locations.get(location).getOwner());
             System.out.println(player.getUniqueId());
 
-            if (locations.get(location).getOwner() != player.getUniqueId()) {
+            if (!locations.get(location).getOwner().equals(player.getUniqueId())) {
                 player.sendMessage(ChatColor.RED + "Sorry, that isn't your chest!");
                 return;
             }
