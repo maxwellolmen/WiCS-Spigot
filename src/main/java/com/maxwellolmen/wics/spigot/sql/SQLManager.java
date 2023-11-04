@@ -9,6 +9,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +37,16 @@ public class SQLManager implements Manager {
 
     public void init() {
         try {
+            File file = plugin.getDataFolder();
+
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
             connect();
             initTables();
         } catch (SQLException e) {
