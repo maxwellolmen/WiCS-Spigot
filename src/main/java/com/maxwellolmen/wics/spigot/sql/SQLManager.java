@@ -40,11 +40,7 @@ public class SQLManager implements Manager {
             File file = plugin.getDataFolder();
 
             if (!file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                file.mkdirs();
             }
 
             connect();
