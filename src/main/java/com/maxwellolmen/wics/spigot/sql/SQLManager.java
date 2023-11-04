@@ -76,10 +76,10 @@ public class SQLManager implements Manager {
             UUID uuid = entry.getKey();
             Mailbox mailbox = entry.getValue();
 
-            st.execute("DELETE FROM mailitems WHERE uuid=" + uuid.toString() + ";");
+            st.execute("DELETE FROM mailitems WHERE uuid='" + uuid.toString() + "';");
 
             for (ItemStack item : mailbox.getItems()) {
-                st.execute("INSERT INTO mailitems (uuid, item) VALUES (" + uuid.toString() + ", " + ItemUtil.serialize(item) + ");");
+                st.execute("INSERT INTO mailitems (uuid, item) VALUES ('" + uuid.toString() + "', " + ItemUtil.serialize(item) + ");");
             }
         }
 
@@ -87,8 +87,8 @@ public class SQLManager implements Manager {
             Location location = entry.getKey();
             Mailbox mailbox = entry.getValue();
 
-            st.execute("DELETE FROM mailboxes WHERE owner=" + mailbox.getOwner().toString() + ";");
-            st.execute("INSERT INTO mailboxes (world, x, y, z, owner) VALUES (" + location.getWorld().getName() + ", " + location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() + ", " + mailbox.getOwner().toString() + ");");
+            st.execute("DELETE FROM mailboxes WHERE owner='" + mailbox.getOwner().toString() + "';");
+            st.execute("INSERT INTO mailboxes (world, x, y, z, owner) VALUES ('" + location.getWorld().getName() + "', " + location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() + ", '" + mailbox.getOwner().toString() + "');");
         }
 
         st.close();
