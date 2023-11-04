@@ -136,15 +136,11 @@ public class SQLManager implements Manager {
             UUID uuid = UUID.fromString(rs.getString("uuid"));
             ItemStack item = ItemUtil.deserialize(rs.getString("item"));
 
-            if (item.getType() == Material.AIR) {
-                continue;
-            }
-
             if (mailboxes.containsKey(uuid)) {
                 mailboxes.get(uuid).addItem(item);
             } else {
                 Mailbox mailbox = new Mailbox(uuid);
-                mailbox.addItem(item);
+                if (item.getType() != Material.AIR) mailbox.addItem(item);
 
                 mailboxes.put(uuid, mailbox);
             }
