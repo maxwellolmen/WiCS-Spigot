@@ -80,7 +80,7 @@ public class MailListener implements Listener {
             return;
         }
 
-        if (mailbox.getOwner() != event.getPlayer().getUniqueId()) {
+        if (!mailbox.getOwner().equals(event.getPlayer().getUniqueId())) {
             event.setCancelled(true);
             event.getPlayer().sendMessage(ChatColor.RED + "This isn't your mailbox! You can't destroy it.");
             return;

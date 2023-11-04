@@ -115,7 +115,7 @@ public class MailManager implements Manager {
     public void processChestOpen(Player player, Location location, PlayerInteractEvent event) {
         if (locations.containsKey(location)) {
             event.setCancelled(true);
-            
+
             System.out.println(locations.get(location).getOwner());
             System.out.println(player.getUniqueId());
 
