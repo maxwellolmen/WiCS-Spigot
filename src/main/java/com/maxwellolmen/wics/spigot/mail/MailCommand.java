@@ -54,6 +54,11 @@ public class MailCommand implements CommandExecutor {
                 return true;
             }
 
+            if (mailbox.getItems().size() >= 54) {
+                player.sendMessage(ChatColor.RED + "Sorry! That player's mailbox is full.");
+                return true;
+            }
+
             ItemStack item = player.getInventory().getItemInMainHand();
 
             player.getInventory().remove(item);
@@ -62,6 +67,12 @@ public class MailCommand implements CommandExecutor {
             WiCSPlugin.mailManager.refresh(mailbox);
 
             player.sendMessage(ChatColor.GREEN + "Item sent!");
+
+            if (target.isOnline()) {
+                ((Player) target).sendMessage(ChatColor.GOLD + "Hey! " + ChatColor.BOLD + player.getDisplayName() + ChatColor.GOLD + " just mailed you an item!");
+            } else {
+                manager.scheduleNotif(target.getUniqueId(), player.getDisplayName());
+            }
         } else if (args[0].equalsIgnoreCase("set")) {
             Block block = player.getTargetBlockExact(10);
 

@@ -20,12 +20,15 @@ public class MailManager implements Manager {
     private Map<UUID, Mailbox> mailboxes;
     private Map<Location, Mailbox> locations;
 
+    private Map<UUID, List<String>> pendingNotifs;
+
     public MailManager(WiCSPlugin plugin) {
         this.plugin = plugin;
         this.listener = new MailListener(this);
         this.openMailboxes = new TreeSet<>();
         this.mailboxes = new HashMap<>();
         this.locations = new HashMap<>();
+        this.pendingNotifs = new HashMap<>();
     }
 
     public void init() {
@@ -132,5 +135,17 @@ public class MailManager implements Manager {
     public void setMailboxLocation(Location location, Mailbox mailbox) {
         locations.remove(getLocation(mailbox));
         locations.put(location, mailbox);
+    }
+
+    public List<String> getPendingNotifs(UUID uuid) {
+        return pendingNotifs.get(uuid);
+    }
+
+    public void scheduleNotif(UUID uuid, String senderName) {
+        if (!pendingNotifs.containsKey(uuid)) {
+            pendingNotifs.put(uuid, new ArrayList<>());
+        }
+
+        pendingNotifs.get(uuid).add(senderName);
     }
 }
