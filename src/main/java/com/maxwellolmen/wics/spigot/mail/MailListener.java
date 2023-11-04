@@ -59,6 +59,10 @@ public class MailListener implements Listener {
             return;
         }
 
+        if (event.getPlayer().isSneaking() && event.isBlockInHand()) {
+            return;
+        }
+
         Block block = event.getClickedBlock();
 
         if (block == null || block.getType() != Material.CHEST) {
